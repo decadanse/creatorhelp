@@ -53,48 +53,84 @@ contract('NFT', ([deployer, artist, owner1, owner2]) => {
         })
     })
 
-    // describe('royalities', async () => {
-    //     const salePrice = web3.utils.toWei('10', 'ether')
-    //     const totalRoyality = salePrice * 0.25
-    //     const transferability = 1 
-    //     let result
+    describe('royalities', async () => {
+        const salePrice = web3.utils.toWei('10', 'ether')
+        const totalRoyality = salePrice * 0.25
+        let result
 
-    //     beforeEach(async () => {
-    //         await nft.mint({ from: owner1, value: cost })
-    //     })
+        beforeEach(async () => {
+            await nft.mint({ from: owner1, value: cost })
+        })
 
-    //     it('initially belongs to owner1', async () => {
-    //         const result = await nft.balanceOf(owner1)
-    //         result.toString().should.equal('1')
-    //     })
+        it('initially belongs to owner1', async () => {
+            const result = await nft.balanceOf(owner1)
+            result.toString().should.equal('1')
+        })
 
-    //     it('successfully transfers to owner2', async () => {
-    //         await nft.approve(owner2, 1, { from: owner1 })
-    //         await nft.transferFrom(owner1, owner2, 1, { from: owner2, value: salePrice })
+        it('successfully transfers to owner2', async () => {
+            await nft.approve(owner2, 1, { from: owner1 })
+            await nft.transferFrom(owner1, owner2, 1, { from: owner2, value: salePrice })
 
-    //         result = await nft.balanceOf(owner1)
-    //         result.toString().should.equal('0')
+            result = await nft.balanceOf(owner1)
+            result.toString().should.equal('0')
 
-    //         result = await nft.balanceOf(owner2)
-    //         result.toString().should.equal('1')
-    //     })
+            result = await nft.balanceOf(owner2)
+            result.toString().should.equal('1')
+        })
 
-    //     it('updates ether balances', async () => {
-    //         // Approve sale
-    //         await nft.approve(owner2, 1, { from: owner1 })
+        it('updates ether balances', async () => {
+            // Approve sale
+            await nft.approve(owner2, 1, { from: owner1 })
 
-    //         const artistBalanceBefore = await web3.eth.getBalance(artist)
-    //         const owner1BalanceBefore = await web3.eth.getBalance(owner1)
+            const artistBalanceBefore = await web3.eth.getBalance(artist)
+            const owner1BalanceBefore = await web3.eth.getBalance(owner1)
 
-    //         // Initiate transfer
-    //         await nft.transferFrom(owner1, owner2, 1, { from: owner2, value: salePrice })
+            // Initiate transfer
+            await nft.transferFrom(owner1, owner2, 1, { from: owner2, value: salePrice })
 
-    //         const artistBalanceAfter = await web3.eth.getBalance(artist)
-    //         const owner1BalanceAfter = await web3.eth.getBalance(owner1)
+            const artistBalanceAfter = await web3.eth.getBalance(artist)
+            const owner1BalanceAfter = await web3.eth.getBalance(owner1)
 
-    //         // If balances update, we know owner2 paid
-    //         artistBalanceAfter.toString().should.equal((Number(artistBalanceBefore) + totalRoyality).toString())
-    //         owner1BalanceAfter.toString().should.equal((Number(owner1BalanceBefore) + (salePrice - totalRoyality)).toString())
-    //     })
-    // })
+            // If balances update, we know owner2 paid
+            artistBalanceAfter.toString().should.equal((Number(artistBalanceBefore) + totalRoyality).toString())
+            owner1BalanceAfter.toString().should.equal((Number(owner1BalanceBefore) + (salePrice - totalRoyality)).toString())
+        })
+    })
+
+
+    describe("approve, transfer, safeTransferFrom", () => {
+        // let transferability
+
+        it("doesn't allow approve, transferFrom, or safeTransferFrom if transferable is false", async () => {
+            const aliceAddr = await accounts[0].getAddress();
+            const bobAddr = await accounts[1].getAddress();
+             await mintAndCheck("Alice", aliceAddr, transferable);
+            const tokenId = (await transferable.nextId()).sub(1);
+
+            await expect(transferable.approve(bobAddr, tokenId)).to.be.revertedWith(
+            "Memberships: not transferable"
+        );
+
+        await expect(
+            transferable.transferFrom(aliceAddr, bobAddr, tokenId)
+          ).to.be.revertedWith("Memberships: not transferable");
+
+        await expect(
+            transferable.callStatic["safeTransferFrom(address,address,uint256)"](
+              aliceAddr,
+              bobAddr,
+              tokenId
+            )
+          ).to.be.revertedWith("Memberships: not transferable");
+
+        await expect(
+            transferable.callStatic[
+              "safeTransferFrom(address,address,uint256,bytes)"
+            ](aliceAddr, bobAddr, tokenId, randomBytes(5))
+          ).to.be.revertedWith("Memberships: not transferable");
+        });
+
+
+    })
+
 })
