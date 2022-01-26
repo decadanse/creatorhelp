@@ -4,9 +4,9 @@
 - [nft_royalties](https://github.com/dappuniversity/nft_royalties)
 
 ## Plan:
-- [] Add transferability
-- [] Add different functional fot transferable and non-transferable tokens 
-- [] Add ERC1155
+- [x] Add transferability
+- [ ] Add different functional fot transferable and non-transferable tokens 
+- [ ] Add ERC1155
 
 ## Technology Stack & Tools
 
