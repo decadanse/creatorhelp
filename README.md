@@ -27,7 +27,7 @@
 
 ### 2. Install Dependencies:
 ```
-$ cd nft_royalties
+$ cd creatorhelp
 $ npm install 
 ```
 
