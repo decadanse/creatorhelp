@@ -5,6 +5,7 @@
 
 ## Plan:
 - [x] Add transferability
+- [ ] Fix test `doesn't allow approve, transferFrom, or safeTransferFrom if transferable is false`
 - [ ] Fix `truffle exec ./scripts/perform_sale.js` script for added transferability
 - [ ] Add different functional fot transferable and non-transferable tokens 
 - [ ] Add ERC1155
@@ -29,9 +30,12 @@
 ```
 $ cd creatorhelp
 $ npm install 
+$ npm i ganache-cli
 ```
 
 ### 3. Start Ganache
+in different window
+`$ ganache-cli`
 
 ### 4. Migrate Smart Contracts
 `$ truffle migrate --reset`

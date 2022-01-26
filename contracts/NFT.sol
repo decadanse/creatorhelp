@@ -3,10 +3,17 @@
 import "./ERC721.sol";
 import "./ERC721Enumerable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import {Counters} from "@openzeppelin/contracts/utils/Counters.sol";
 
 pragma solidity >=0.7.0 <0.9.0;
 
 contract NFT is ERC721Enumerable, Ownable {
+
+//----
+    using Counters for Counters.Counter;
+    Counters.Counter internal _counter;
+//----
+
 
     using Strings for uint256;
 
@@ -108,6 +115,11 @@ contract NFT is ERC721Enumerable, Ownable {
 
 
 //___________________________________________________
+    function nextId() public view returns (uint256) {
+        return _counter.current();
+    }
+
+
     // Added isTransferable only
     function approve(address to, uint256 tokenId)
         public

@@ -19,6 +19,10 @@
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
     "ganache": "^7.0.0",
+    "ganache-cli": "^6.12.2",
     "web3": "^1.6.1"
+  },
+  "devDependencies": {
+    "ethers": "^5.5.3"
   }
 }
