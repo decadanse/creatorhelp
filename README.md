@@ -5,6 +5,7 @@
 
 ## Plan:
 - [x] Add transferability
+- [ ] Fix `truffle exec ./scripts/perform_sale.js` script for added transferability
 - [ ] Add different functional fot transferable and non-transferable tokens 
 - [ ] Add ERC1155
 
