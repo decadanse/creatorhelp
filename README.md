@@ -1,4 +1,4 @@
-# NFT Royalties 
+# Creators Help NFT
 
 ### References:
 - [nft_royalties](https://github.com/dappuniversity/nft_royalties)
