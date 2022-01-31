@@ -4,7 +4,10 @@
 - [nft_royalties](https://github.com/dappuniversity/nft_royalties)
 
 ## Plan:
-- [x] Add transferability
+- [x] Add transferability 
+
+[Polygon Testnet
+0x33d300f4AA59A0c950230C707fC1DF26dc88f508](https://mumbai.polygonscan.com/address/0x33d300f4aa59a0c950230c707fc1df26dc88f508)
 - [ ] Fix test `doesn't allow approve, transferFrom, or safeTransferFrom if transferable is false`
 - [ ] Fix `truffle exec ./scripts/perform_sale.js` script for added transferability
 - [ ] Add different functional fot transferable and non-transferable tokens 
