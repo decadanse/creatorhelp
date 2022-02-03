@@ -6,8 +6,10 @@
 ## Plan:
 - [x] Add transferability 
 
-[Polygon Testnet
+[Polygon testnet
 0x33d300f4AA59A0c950230C707fC1DF26dc88f508](https://mumbai.polygonscan.com/address/0x33d300f4aa59a0c950230c707fc1df26dc88f508)
+
+[Polygon mainnet 0xa6ac554f7cd0d992300141b194440479bbc057d2](https://polygonscan.com/token/0xa6ac554f7cd0d992300141b194440479bbc057d2)
 - [ ] Fix test `doesn't allow approve, transferFrom, or safeTransferFrom if transferable is false`
 - [ ] Fix `truffle exec ./scripts/perform_sale.js` script for added transferability
 - [ ] Add different functional fot transferable and non-transferable tokens 
